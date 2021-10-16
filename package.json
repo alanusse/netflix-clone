@@ -1,0 +1,29 @@
+{
+  "private": "true",
+  "name": "netflix-clone",
+  "version": "1.0.0",
+  "description": "Netflix clone monorepo",
+  "workspaces": [
+    "app"
+  ],
+  "scripts": {
+    "dev:app": "npm start --workspace=app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alanusse/netflix-clone.git"
+  },
+  "keywords": [
+    "netflix-clone",
+    "react",
+    "nodejs",
+    "mongodb",
+    "express"
+  ],
+  "author": "Agustin Lanusse",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alanusse/netflix-clone/issues"
+  },
+  "homepage": "https://github.com/alanusse/netflix-clone#readme"
+}
