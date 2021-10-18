@@ -3,20 +3,21 @@ import colors from '../styles/colors'
 
 const InputContainer = styled.div`
   position: relative;
-  display: inline;
   width: 100%;
+  height: 50px;
   ${props => props.isError && 'margin-bottom: 25px;'}
 `
 
 const StyledInput = styled.input`
   position: relative;
   width: 100%;
-  height: 50px;
+  height: 100%;
   border: 1px solid #ccc;
   ${props => props.isError && `border-bottom: 3px solid ${colors.orange};`};
   border-radius: 3px;
   background-color: #fdfdfd;
   padding: 20px 15px 10px 15px;
+  font-size: 17px;
 
   ::placeholder {
     visibility: hidden;
@@ -35,13 +36,12 @@ const StyledInput = styled.input`
 
 const StyledLabel = styled.label`
   position: absolute;
-  top: 0;
+  top: 6px;
   left: 0;
   padding-left: 15px;
   color: #999999;
   font-size: 12px;
   letter-spacing: .5px;
-  transform: translateY(40%);
   transition: all .3s ease;
   cursor: text;
 `
@@ -58,11 +58,11 @@ const ErrorMessage = styled.span`
   letter-spacing: .5px;
 `
 
-const Input = ({ errorMessage, ...props }) => {
+const Input = ({ id, errorMessage, ...props }) => {
   return (
     <InputContainer isError={Boolean(errorMessage)}>
-      <StyledInput isError={Boolean(errorMessage)} {...props} />
-      <StyledLabel>{props.placeholder}</StyledLabel>
+      <StyledInput id={id} isError={Boolean(errorMessage)} {...props} />
+      <StyledLabel htmlFor={id}>{props.placeholder}</StyledLabel>
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </InputContainer>
   )

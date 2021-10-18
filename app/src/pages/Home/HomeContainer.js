@@ -1,8 +1,8 @@
-import Header from '../../components/Header'
+import HomeView from './HomeView'
 
 const HomeContainer = () => {
   return (
-    <Header />
+    <HomeView />
   )
 }
 

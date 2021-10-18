@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import Container from '../Container'
 import Link from '../Link'
 import { ReactComponent as Logo } from '../../full-logo.svg'
 import { Link as RRLink } from 'react-router-dom'
@@ -18,16 +17,14 @@ const StyledLogo = styled(Logo)`
 
 const HeaderView = () => {
   return (
-    <Container>
-      <Header>
-        <span>
-          <RRLink to='/'>
-            <StyledLogo />
-          </RRLink>
-        </span>
-        <Link to='/login'>Sign In</Link>
-      </Header>
-    </Container>
+    <Header>
+      <span>
+        <RRLink to='/'>
+          <StyledLogo />
+        </RRLink>
+      </span>
+      <Link to='/login'>Sign In</Link>
+    </Header>
   )
 }
 
