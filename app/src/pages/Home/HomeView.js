@@ -7,7 +7,7 @@ import heroImage from '../../assets/home-hero.jpeg'
 const HomeHero = styled.div`
   position: relative;
   display: flex;
-  min-height: 70vh;
+  min-height: 80vh;
   background-image: url(${heroImage});
   background-position: center;
   background-size: cover;
