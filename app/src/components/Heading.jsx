@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 
 const baseStyle = ({
   color,
@@ -19,7 +20,7 @@ const baseStyle = ({
   ${marginBottom ? `margin-bottom: ${marginBottom};` : ''}
   ${marginLeft ? `margin-left: ${marginLeft};` : ''}
   ${marginRight ? `margin-right: ${marginRight};` : ''}
-  ${center ? `text-align: center;` : ''}
+  ${center ? 'text-align: center;' : ''}
 `
 
 const H1 = styled.h1`
@@ -42,6 +43,11 @@ const Heading = ({ type, ...props }) => {
   if (type === 'h1') return <H1 {...props} />
   if (type === 'h2') return <H2 {...props} />
   if (type === 'h3') return <H3 {...props} />
+}
+
+Heading.propTypes = {
+  /* Heading tag. It can be: h1, h2, h3 */
+  type: PropTypes.string.isRequired
 }
 
 export default Heading

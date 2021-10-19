@@ -10,7 +10,7 @@ const Hero = () => {
       <div>
         <Heading type='h2' fontSize='1.1rem' fontWeight='300' center>Ready to watch? Enter your email to create or restart your membership.</Heading>
         <form>
-          <Input id='start-email' type="email" placeholder='Email address' />
+          <Input id='start-email' type='email' placeholder='Email address' />
           <Button
             type='submit'
             margin='1rem auto 0 auto'

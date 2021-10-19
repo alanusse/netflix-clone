@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import colors from '../styles/colors'
 
@@ -58,14 +59,30 @@ const ErrorMessage = styled.span`
   letter-spacing: .5px;
 `
 
-const Input = ({ id, errorMessage, ...props }) => {
+const Input = ({ id, errorMessage, placeholder, ...props }) => {
   return (
     <InputContainer isError={Boolean(errorMessage)}>
-      <StyledInput id={id} isError={Boolean(errorMessage)} {...props} />
-      <StyledLabel htmlFor={id}>{props.placeholder}</StyledLabel>
+      <StyledInput
+        id={id}
+        isError={Boolean(errorMessage)}
+        placeholder={placeholder}
+        {...props}
+      />
+      <StyledLabel htmlFor={id}>{placeholder}</StyledLabel>
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
     </InputContainer>
   )
+}
+
+Input.propTypes = {
+  /* Id to set into input element */
+  id: PropTypes.string.isRequired,
+
+  /* Error message to display */
+  errorMessage: PropTypes.string,
+
+  /* Placeholder text */
+  placeholder: PropTypes.string.isRequired
 }
 
 export default Input
