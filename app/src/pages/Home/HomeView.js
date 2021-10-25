@@ -3,6 +3,7 @@ import Container from '../../components/Container'
 import Header from '../../components/Header'
 import Hero from './components/Hero'
 import heroImage from '../../assets/home-hero.jpeg'
+import CardsList from './components/CardsList'
 
 const HomeHero = styled.div`
   position: relative;
@@ -48,14 +49,17 @@ const StyledHeader = styled.div`
 
 const HomeView = () => {
   return (
-    <HomeHero>
-      <StyledContainer>
-        <StyledHeader>
-          <Header />
-        </StyledHeader>
-        <Hero />
-      </StyledContainer>
-    </HomeHero>
+    <div>
+      <HomeHero>
+        <StyledContainer>
+          <StyledHeader>
+            <Header />
+          </StyledHeader>
+          <Hero />
+        </StyledContainer>
+      </HomeHero>
+      <CardsList />
+    </div>
   )
 }
 
