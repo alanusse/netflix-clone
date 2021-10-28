@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import Link from '../Link'
-import { ReactComponent as Logo } from '../../full-logo.svg'
+import { ReactComponent as Logo } from '../../assets/full-logo.svg'
 import { Link as RRLink } from 'react-router-dom'
 
 const Header = styled.header`

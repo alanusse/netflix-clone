@@ -4,7 +4,7 @@ const colors = {
   grey: '#564d4d',
   darkGrey: '#222',
   terracota: '#831010',
-  orange: '#ffa00a',
+  orange: '#e87c03',
   blue: '#0071eb'
 }
 

@@ -6,17 +6,40 @@ const InputContainer = styled.div`
   position: relative;
   width: 100%;
   height: 50px;
-  ${props => props.isError && 'margin-bottom: 25px;'}
+  border-radius: 5px;
+  ${props => props.margin && `margin: ${props.margin};`}
+  ${props => props.isError && 'margin-bottom: 40px;'}
+  ${props => props.isError && `border-bottom: 3px solid ${colors.orange};`}
 `
 
 const StyledInput = styled.input`
   position: relative;
   width: 100%;
   height: 100%;
-  border: 1px solid #ccc;
-  ${props => props.isError && `border-bottom: 3px solid ${colors.orange};`};
-  border-radius: 3px;
-  background-color: #fdfdfd;
+  border: 1px solid;
+  border-radius: 5px;
+
+  // border color
+  border-color: ${({ variant }) => (
+    variant === 'dark'
+      ? 'transparent'
+      : '#ccc'
+  )};
+
+  // background color
+  background-color: ${({ variant }) => (
+    variant === 'dark'
+      ? '#333'
+      : '#fdfdfd'
+  )};
+
+  // color
+  color: ${({ variant }) => (
+    variant === 'dark'
+      ? '#ccc'
+      : '#333'
+  )};
+
   padding: 20px 15px 10px 15px;
   font-size: 17px;
 
@@ -26,6 +49,11 @@ const StyledInput = styled.input`
 
   :focus {
     outline: none;
+    background-color: ${({ variant }) => (
+      variant === 'dark'
+        ? '#454545'
+        : '#eaeaea'
+    )};
   }
 
   :not(:focus):placeholder-shown + label {
@@ -51,7 +79,7 @@ const ErrorMessage = styled.span`
   position: absolute;
   bottom: 0;
   left: 0;
-  transform: translateY(130%);
+  transform: translateY(160%);
   font-size: 14px;
   margin-top: 8px;
   margin-left: 5px;
@@ -59,13 +87,21 @@ const ErrorMessage = styled.span`
   letter-spacing: .5px;
 `
 
-const Input = ({ id, errorMessage, placeholder, ...props }) => {
+const Input = ({
+  id,
+  errorMessage,
+  placeholder,
+  margin,
+  variant = 'light',
+  ...props
+}) => {
   return (
-    <InputContainer isError={Boolean(errorMessage)}>
+    <InputContainer margin={margin} isError={Boolean(errorMessage)}>
       <StyledInput
         id={id}
         isError={Boolean(errorMessage)}
         placeholder={placeholder}
+        variant={variant}
         {...props}
       />
       <StyledLabel htmlFor={id}>{placeholder}</StyledLabel>
@@ -82,7 +118,13 @@ Input.propTypes = {
   errorMessage: PropTypes.string,
 
   /* Placeholder text */
-  placeholder: PropTypes.string.isRequired
+  placeholder: PropTypes.string.isRequired,
+
+  /* Margin to apply to input container */
+  margin: PropTypes.string,
+
+  /* Style variant of input */
+  variant: PropTypes.string
 }
 
 export default Input
