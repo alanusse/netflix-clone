@@ -3,11 +3,11 @@ import styled from 'styled-components'
 import colors from '../../styles/colors'
 
 // components
+import Header from '../LogIn/components/Header'
 import Container from '../../components/Container'
-import Header from './components/Header'
-import Heading from '../../components/Heading'
-import Input from '../../components/Input'
 import Button from '../../components/Button'
+import Input from '../../components/Input'
+import Heading from '../../components/Heading'
 
 const StyledContainer = styled(Container)`
   max-width: 550px;
@@ -35,33 +35,40 @@ const StyledSignUpText = styled.p`
   }
 `
 
-const LoginView = () => {
+const SignUpView = () => {
   return (
     <div>
       <Header />
       <StyledContainer>
-        <Heading type='h1' color='#fff'>Sign In</Heading>
+        <Heading type='h1' color='#fff'>Sign Up</Heading>
         <form>
           <Input
-            id='login__email'
+            id='signup__email'
             type='email'
             margin='0 0 15px 0'
             placeholder='Email'
             variant='dark'
           />
           <Input
-            id='login__password'
+            id='signup__password'
             type='password'
-            margin='0 0 40px 0'
+            margin='0 0 15px 0'
             placeholder='Password'
             variant='dark'
           />
-          <StyledButton type='submit'>Sign In</StyledButton>
+          <Input
+            id='signup__repeat-password'
+            type='password'
+            margin='0 0 40px 0'
+            placeholder='Repeat password'
+            variant='dark'
+          />
+          <StyledButton type='submit'>Sign Up</StyledButton>
         </form>
-        <StyledSignUpText>New to Netflix? <Link to='/'>Sign up now.</Link></StyledSignUpText>
+        <StyledSignUpText>Do you already have an account? <Link to='/login'>Sign in.</Link></StyledSignUpText>
       </StyledContainer>
     </div>
   )
 }
 
-export default LoginView
+export default SignUpView
