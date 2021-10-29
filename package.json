@@ -4,11 +4,13 @@
   "version": "1.0.0",
   "description": "Netflix clone monorepo",
   "workspaces": [
-    "app"
+    "app",
+    "backend"
   ],
   "scripts": {
     "dev:app": "npm start --workspace=app",
-    "lint": "eslint ./app"
+    "dev:backend": "npm run dev --workspace=backend",
+    "lint": "eslint ./app ./backend"
   },
   "repository": {
     "type": "git",
