@@ -9,5 +9,6 @@ const MONGODB_URI = process.env.NODE_ENV === 'production'
 module.exports = {
   PORT: Number(process.env.PORT || 3000),
   MONGODB_URI,
-  BCRYPT_SALT_ROUNDS: Number(process.env.BCRYPT_SALT_ROUNDS)
+  BCRYPT_SALT_ROUNDS: Number(process.env.BCRYPT_SALT_ROUNDS),
+  JWT_SECRET: process.env.JWT_SECRET
 }

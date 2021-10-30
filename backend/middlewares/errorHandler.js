@@ -1,26 +1,36 @@
-const errorTemplate = (errorCode, error, errors = []) => ({
+const errorTemplate = (errorCode, errorMessage, errors) => ({
   code: errorCode,
-  error,
+  error: errorMessage,
   errors
 })
 
 const handleValidationError = (err, res) => {
-  const errorCode = 400
+  const status = 400
   const errors = Object.values(err.errors).map(error => ({
     field: error.path,
     message: error.message
   }))
 
   return res
-    .status(errorCode)
-    .json(errorTemplate(errorCode, 'Validation Error', errors))
+    .status(status)
+    .json(errorTemplate(status, 'Validation Error', errors))
     .end()
+}
+
+const handleCustomError = (err, res) => {
+  const status = err.status
+  const errorMessage = err.message
+
+  return res
+    .status(status)
+    .json(errorTemplate(status, errorMessage))
 }
 
 module.exports = (error, req, res, next) => {
   console.error(error)
 
   if (error.name === 'ValidationError') return handleValidationError(error, res)
+  if (error.name === 'CustomError') return handleCustomError(error, res)
 
   return res
     .status(500)
