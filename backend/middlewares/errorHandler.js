@@ -6,10 +6,19 @@ const errorTemplate = (errorCode, errorMessage, errors) => ({
 
 const handleValidationError = (err, res) => {
   const status = 400
-  const errors = Object.values(err.errors).map(error => ({
-    field: error.path,
-    message: error.message
-  }))
+  const errors = Object.values(err.errors).map(error => {
+    if (error.name === 'CastError') {
+      return {
+        field: error.path,
+        message: `Expected a ${error.kind} but received a ${error.valueType}`
+      }
+    } else {
+      return {
+        field: error.path,
+        message: error.message
+      }
+    }
+  })
 
   return res
     .status(status)
