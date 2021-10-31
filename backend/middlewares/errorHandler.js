@@ -4,14 +4,24 @@ const errorTemplate = (errorCode, errorMessage, errors) => ({
   errors
 })
 
+const castErrorTemplate = ({ field, kind, valueType }) => {
+  return {
+    field: field === '_id' ? 'id' : field,
+    message: kind === 'ObjectId'
+      ? 'Malformed id.'
+      : `Expected a ${kind} but received a ${valueType}`
+  }
+}
+
 const handleValidationError = (err, res) => {
   const status = 400
   const errors = Object.values(err.errors).map(error => {
     if (error.name === 'CastError') {
-      return {
+      return castErrorTemplate({
         field: error.path,
-        message: `Expected a ${error.kind} but received a ${error.valueType}`
-      }
+        kind: error.kind,
+        valueType: error.valueType
+      })
     } else {
       return {
         field: error.path,
@@ -24,6 +34,21 @@ const handleValidationError = (err, res) => {
     .status(status)
     .json(errorTemplate(status, 'Validation Error', errors))
     .end()
+}
+
+const handleCastError = (err, res) => {
+  const status = 400
+  const errors = [
+    castErrorTemplate({
+      field: err.path,
+      kind: err.kind,
+      valueType: err.valueType
+    })
+  ]
+
+  return res
+    .status(status)
+    .json(errorTemplate(status, 'Validation Error', errors))
 }
 
 const handleCustomError = (err, res) => {
@@ -39,10 +64,10 @@ module.exports = (error, req, res, next) => {
   console.error(error)
 
   if (error.name === 'ValidationError') return handleValidationError(error, res)
+  if (error.name === 'CastError') return handleCastError(error, res)
   if (error.name === 'CustomError') return handleCustomError(error, res)
 
   return res
     .status(500)
     .json(errorTemplate(500, 'Unknown Error'))
-    .end()
 }

@@ -21,6 +21,8 @@ const controller = {
         if (user.error === userService.ERROR_NAMES.USER_NOT_FOUND || user.error === userService.ERROR_NAMES.INVALID_USER_PASSWORD) {
           throw new CustomError(401, 'Email or password is invalid.')
         }
+
+        return next(user)
       }
 
       return res
@@ -28,7 +30,6 @@ const controller = {
         .json(responseTemplate(200, {
           authenticationToken: user.token
         }))
-        .end()
     } catch (error) {
       return next(error)
     }

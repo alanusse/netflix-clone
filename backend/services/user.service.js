@@ -9,9 +9,10 @@ const userService = {
     INVALID_USER_PASSWORD: 'INVALID_USER_PASSWORD'
   },
 
-  signup: function (email, password) {
+  signup: async function (email, password) {
     const user = new User({ email, password })
-    return user.save()
+    await user.save()
+    return user
   },
 
   signin: async function (email, password) {
@@ -30,6 +31,14 @@ const userService = {
     return {
       token
     }
+  },
+
+  getUserById: async function (id) {
+    const user = await User.findById(id)
+
+    if (!user) return { failed: true, error: this.ERROR_NAMES.USER_NOT_FOUND }
+
+    return user
   }
 }
 

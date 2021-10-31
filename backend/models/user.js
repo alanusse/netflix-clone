@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose')
+const { Schema, model, SchemaTypes } = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 const validator = require('validator')
 const passwordMethods = require('../utils/passwordMethods')
@@ -11,6 +11,7 @@ const UserSchema = new Schema({
     required: [true, 'Email is a required field.'],
     validate: [validator.isEmail, 'Email is invalid.']
   },
+
   password: {
     type: String,
     required: [true, 'Password is a required field.'],
@@ -18,7 +19,9 @@ const UserSchema = new Schema({
       constants.PASSWORD_MINIMUM_LENGTH,
       `Password minimum length is ${constants.PASSWORD_MINIMUM_LENGTH}`
     ]
-  }
+  },
+
+  profiles: [{ type: SchemaTypes.ObjectId, ref: 'Profile' }]
 }, {
   timestamps: true
 })
