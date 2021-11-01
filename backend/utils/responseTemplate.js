@@ -1,4 +1,4 @@
-module.exports = (status, data) => ({
+module.exports = ({ status, data }) => ({
   status,
   data
 })

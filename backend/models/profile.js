@@ -4,7 +4,8 @@ const CONSTANTS = require('../constants')
 const ProfileSchema = new Schema({
   account: {
     type: SchemaTypes.ObjectId,
-    ref: 'User'
+    ref: 'User',
+    required: [true, 'Account id is required.']
   },
 
   name: {
@@ -21,7 +22,7 @@ const ProfileSchema = new Schema({
     required: [true, 'Avatar URL is required.']
   },
 
-  kidProfile: {
+  isKidProfile: {
     type: Boolean,
     required: [true, 'KidProfile field is required.']
   },
@@ -45,6 +46,14 @@ const ProfileSchema = new Schema({
   }]
 }, {
   timestamps: true
+})
+
+ProfileSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = document._id.toString()
+    delete returnedObject._id
+    delete returnedObject.__v
+  }
 })
 
 module.exports = model('Profile', ProfileSchema)

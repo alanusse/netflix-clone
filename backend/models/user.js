@@ -30,10 +30,13 @@ UserSchema.plugin(uniqueValidator, {
   message: 'An account with this {PATH} already exists.'
 })
 
-// before of user creation, the password will be replaced by a hashed password
+// before user creation, the password will be replaced by a hashed password
 UserSchema.pre('save', function (next) {
-  const hashedPassword = passwordMethods.createHash(this.password)
-  this.password = hashedPassword
+  if (this.isModified('password')) {
+    const hashedPassword = passwordMethods.createHash(this.password)
+    this.password = hashedPassword
+  }
+
   next()
 })
 
