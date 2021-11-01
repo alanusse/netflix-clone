@@ -61,11 +61,15 @@ const handleCustomError = (err, res) => {
 }
 
 module.exports = (error, req, res, next) => {
+  process.env.NODE_ENV === 'development' &&
   console.error(error)
 
   if (error.name === 'ValidationError') return handleValidationError(error, res)
   if (error.name === 'CastError') return handleCastError(error, res)
   if (error.name === 'CustomError') return handleCustomError(error, res)
+
+  process.env.NODE_ENV === 'production' &&
+    console.error(error)
 
   return res
     .status(500)

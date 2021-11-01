@@ -10,5 +10,6 @@ module.exports = {
   PORT: Number(process.env.PORT || 3000),
   MONGODB_URI,
   BCRYPT_SALT_ROUNDS: Number(process.env.BCRYPT_SALT_ROUNDS),
-  JWT_SECRET: process.env.JWT_SECRET
+  JWT_SECRET: process.env.JWT_SECRET,
+  JWT_EXPIRY_TIME: process.env.JWT_EXPIRY_TIME
 }
