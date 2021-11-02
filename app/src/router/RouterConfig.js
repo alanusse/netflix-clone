@@ -5,6 +5,7 @@ import Home from '../pages/Home'
 import LogIn from '../pages/LogIn'
 import SignUp from '../pages/SignUp'
 
+// TODO: unknown endpoint - 404
 const RouterConfig = () => {
   return (
     <Switch>
