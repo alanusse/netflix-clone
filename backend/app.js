@@ -10,6 +10,7 @@ app.use(require('morgan')('dev'))
 app.use('/api/v1/auth', require('./routes/auth.routes'))
 app.use('/api/v1/users', requireAuthentication, require('./routes/user.routes'))
 app.use('/api/v1/profiles', requireAuthentication, require('./routes/profile.routes'))
+app.use('/api/v1/movies', requireAuthentication, require('./routes/movie.routes'))
 
 // error handlers
 app.use(require('./middlewares/errorHandler'))

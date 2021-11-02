@@ -11,5 +11,6 @@ module.exports = {
   MONGODB_URI,
   BCRYPT_SALT_ROUNDS: Number(process.env.BCRYPT_SALT_ROUNDS),
   JWT_SECRET: process.env.JWT_SECRET,
-  JWT_EXPIRY_TIME: process.env.JWT_EXPIRY_TIME
+  JWT_EXPIRY_TIME: process.env.JWT_EXPIRY_TIME,
+  TMDB_API_KEY: process.env.TMDB_API_KEY
 }
