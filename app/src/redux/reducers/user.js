@@ -1,12 +1,16 @@
 import { ACTIONS_NAMES } from '../actions/user'
 
+const getUserAuthTokenFromLocalStorage = () => {
+  return JSON.parse(window.localStorage.getItem('user'))?.authorization || null
+}
+
 const initialState = {
   isError: false,
   errorFields: null,
   errorMessage: null,
   isLoading: false,
-  isLoggedIn: false,
-  authorization: JSON.parse(window.localStorage.getItem('user'))?.authorization || null
+  isLoggedIn: !!getUserAuthTokenFromLocalStorage(),
+  authorization: getUserAuthTokenFromLocalStorage()
 }
 
 const userReducer = (state = initialState, action) => {
@@ -36,6 +40,7 @@ const userReducer = (state = initialState, action) => {
       const { isError, errorMessage, errorFields } = payload
       return {
         ...state,
+        isLoading: false,
         isError,
         errorMessage,
         errorFields

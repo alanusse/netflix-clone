@@ -1,8 +1,10 @@
 const express = require('express')
 const app = express()
+const cors = require('cors')
 const requireAuthentication = require('./middlewares/requireAuthentication')
 
 // middlewares
+app.use(cors())
 app.use(express.json())
 app.use(require('morgan')('dev'))
 

@@ -26,6 +26,10 @@ export const ButtonRoot = props => `
   :hover {
     filter: drop-shadow(2px 4px 6px black);
   }
+
+  :disabled {
+    filter: brightness(0.5);
+  }
 `
 
 const StyledButton = styled.button`

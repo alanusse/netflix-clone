@@ -17,6 +17,14 @@ const statusActions = {
       errorFields
     }
   }),
+  setUnknownError: {
+    type: ACTIONS_NAMES.setError,
+    payload: {
+      isError: true,
+      errorMessage: 'An unexpected error occurred, please try again.',
+      errorFields: null
+    }
+  },
   removeError: {
     type: ACTIONS_NAMES.setError,
     payload: {
@@ -37,16 +45,16 @@ const actionCreators = {
       dispatch({
         type: ACTIONS_NAMES.loginUser,
         payload: {
-          authentication: response.data.authentication
+          authorization: response.data.authorization
         }
       })
     } catch (error) {
-      dispatch(statusActions.setError({
-        errorMessage: error.response.data.error,
-        errorFields: error.response.data.errors
-      }))
-    } finally {
-      dispatch(statusActions.removeIsLoading)
+      error.response
+        ? dispatch(statusActions.setError({
+          errorMessage: error.response.data.error,
+          errorFields: error.response.data.errors
+        }))
+        : dispatch(statusActions.setUnknownError)
     }
   }
 }

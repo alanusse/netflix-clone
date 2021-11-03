@@ -1,2 +1,2 @@
-import LoginView from './LoginView'
-export default LoginView
+import LoginContainer from './LoginContainer'
+export default LoginContainer
