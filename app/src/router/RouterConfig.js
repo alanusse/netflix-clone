@@ -1,4 +1,5 @@
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, useLocation } from 'react-router-dom'
+import useCheckUserToken from '../hooks/useCheckUserToken'
 
 // pages
 import Home from '../pages/Home'
@@ -7,6 +8,9 @@ import SignUp from '../pages/SignUp'
 
 // TODO: unknown endpoint - 404
 const RouterConfig = () => {
+  const location = useLocation()
+  useCheckUserToken(location)
+
   return (
     <Switch>
       <Route exact path='/' component={Home} />

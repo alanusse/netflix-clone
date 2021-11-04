@@ -1,16 +1,13 @@
+import authInLocalStorage from '../../utils/authInLocalStorage'
 import { ACTIONS_NAMES } from '../actions/user'
-
-const getUserAuthTokenFromLocalStorage = () => {
-  return JSON.parse(window.localStorage.getItem('user'))?.authorization || null
-}
 
 const initialState = {
   isError: false,
   errorFields: null,
   errorMessage: null,
   isLoading: false,
-  isLoggedIn: !!getUserAuthTokenFromLocalStorage(),
-  authorization: getUserAuthTokenFromLocalStorage()
+  isLoggedIn: authInLocalStorage.verifyToken(),
+  authorization: authInLocalStorage.verifyToken() ? authInLocalStorage.getToken() : null
 }
 
 const userReducer = (state = initialState, action) => {
@@ -29,6 +26,13 @@ const userReducer = (state = initialState, action) => {
         authorization
       }
     }
+
+    case ACTIONS_NAMES.logOutUser:
+      return {
+        ...state,
+        isLoggedIn: false,
+        authorization: null
+      }
 
     case ACTIONS_NAMES.setLoading:
       return {

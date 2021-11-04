@@ -1,7 +1,9 @@
 import userService from '../../services/user.service'
+import authInLocalStorage from '../../utils/authInLocalStorage'
 
 export const ACTIONS_NAMES = {
   loginUser: '@user/login',
+  logOutUser: '@user/logout',
   setError: '@user/setError',
   setLoading: '@user/setLoading'
 }
@@ -42,6 +44,9 @@ const actionCreators = {
 
     try {
       const response = await userService.login({ email, password })
+      authInLocalStorage.setUserData({
+        authorization: response.data.authorization
+      })
       dispatch({
         type: ACTIONS_NAMES.loginUser,
         payload: {
@@ -56,6 +61,13 @@ const actionCreators = {
         }))
         : dispatch(statusActions.setUnknownError)
     }
+  },
+
+  logout: () => async dispatch => {
+    authInLocalStorage.removeUserData()
+    dispatch({
+      type: ACTIONS_NAMES.logOutUser
+    })
   }
 }
 
