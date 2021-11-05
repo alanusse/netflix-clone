@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import LoginView from './LoginView'
 import useField from '../../hooks/useField'
@@ -9,6 +10,10 @@ const LoginContainer = () => {
 
   const emailInput = useField({ type: 'email', placeholder: 'Email' })
   const passwordInput = useField({ type: 'password', placeholder: 'Password' })
+
+  useEffect(() => {
+    dispatch(userActions.removeErrors)
+  }, [])
 
   const handleLogin = (e) => {
     e.preventDefault()

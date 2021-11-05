@@ -4,8 +4,21 @@ import authInLocalStorage from '../../utils/authInLocalStorage'
 export const ACTIONS_NAMES = {
   loginUser: '@user/login',
   logOutUser: '@user/logout',
+  signUpUser: '@user/signup',
   setError: '@user/setError',
-  setLoading: '@user/setLoading'
+  removeError: '@user/removeError',
+  setLoading: '@user/setLoading',
+  setSuccessfulSignup: '@user/successfulSignup'
+}
+
+const handleResponseError = (error, dispatch) => {
+  dispatch({
+    type: ACTIONS_NAMES.setError,
+    payload: {
+      errorMessage: error.message || null,
+      errorFields: error.fields || null
+    }
+  })
 }
 
 const statusActions = {
@@ -14,26 +27,12 @@ const statusActions = {
   setError: ({ errorMessage, errorFields }) => ({
     type: ACTIONS_NAMES.setError,
     payload: {
-      isError: true,
       errorMessage,
       errorFields
     }
   }),
-  setUnknownError: {
-    type: ACTIONS_NAMES.setError,
-    payload: {
-      isError: true,
-      errorMessage: 'An unexpected error occurred, please try again.',
-      errorFields: null
-    }
-  },
   removeError: {
-    type: ACTIONS_NAMES.setError,
-    payload: {
-      isError: false,
-      errorMessage: null,
-      errorFields: null
-    }
+    type: ACTIONS_NAMES.removeError
   }
 }
 
@@ -42,25 +41,17 @@ const actionCreators = {
     dispatch(statusActions.removeError)
     dispatch(statusActions.setIsLoading)
 
-    try {
-      const response = await userService.login({ email, password })
-      authInLocalStorage.setUserData({
+    const response = await userService.login({ email, password })
+    if (response.error) return handleResponseError(response, dispatch)
+
+    authInLocalStorage.setUserData({ authorization: response.data.authorization })
+
+    dispatch({
+      type: ACTIONS_NAMES.loginUser,
+      payload: {
         authorization: response.data.authorization
-      })
-      dispatch({
-        type: ACTIONS_NAMES.loginUser,
-        payload: {
-          authorization: response.data.authorization
-        }
-      })
-    } catch (error) {
-      error.response
-        ? dispatch(statusActions.setError({
-          errorMessage: error.response.data.error,
-          errorFields: error.response.data.errors
-        }))
-        : dispatch(statusActions.setUnknownError)
-    }
+      }
+    })
   },
 
   logout: () => async dispatch => {
@@ -68,6 +59,17 @@ const actionCreators = {
     dispatch({
       type: ACTIONS_NAMES.logOutUser
     })
+  },
+
+  signup: ({ email, password }) => async dispatch => {
+    const response = await userService.register({ email, password })
+    if (response.error) return handleResponseError(response, dispatch)
+
+    dispatch({ type: ACTIONS_NAMES.setSuccessfulSignup })
+  },
+
+  removeErrors: {
+    type: ACTIONS_NAMES.removeError
   }
 }
 

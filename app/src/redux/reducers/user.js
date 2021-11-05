@@ -7,7 +7,8 @@ const initialState = {
   errorMessage: null,
   isLoading: false,
   isLoggedIn: authInLocalStorage.verifyToken(),
-  authorization: authInLocalStorage.verifyToken() ? authInLocalStorage.getToken() : null
+  authorization: authInLocalStorage.verifyToken() ? authInLocalStorage.getToken() : null,
+  successfulSignup: false
 }
 
 const userReducer = (state = initialState, action) => {
@@ -23,6 +24,7 @@ const userReducer = (state = initialState, action) => {
         errorMessage: null,
         isLoading: false,
         isLoggedIn: true,
+        successfulSignup: false,
         authorization
       }
     }
@@ -41,13 +43,29 @@ const userReducer = (state = initialState, action) => {
       }
 
     case ACTIONS_NAMES.setError: {
-      const { isError, errorMessage, errorFields } = payload
+      const { errorMessage, errorFields } = payload
       return {
         ...state,
         isLoading: false,
-        isError,
+        isError: true,
         errorMessage,
         errorFields
+      }
+    }
+
+    case ACTIONS_NAMES.removeError: {
+      return {
+        ...state,
+        isError: false,
+        errorMessage: null,
+        errorFields: null
+      }
+    }
+
+    case ACTIONS_NAMES.setSuccessfulSignup: {
+      return {
+        ...state,
+        successfulSignup: true
       }
     }
 
