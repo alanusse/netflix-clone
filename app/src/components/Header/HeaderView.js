@@ -1,7 +1,9 @@
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Link from '../Link'
 import { ReactComponent as Logo } from '../../assets/full-logo.svg'
 import { Link as RRLink } from 'react-router-dom'
+import Container from '../Container'
 
 const Header = styled.header`
   display: flex;
@@ -15,17 +17,23 @@ const StyledLogo = styled(Logo)`
   height: auto;
 `
 
-const HeaderView = () => {
+const HeaderView = ({ isUserLogged }) => {
   return (
-    <Header>
-      <span>
-        <RRLink to='/'>
-          <StyledLogo />
-        </RRLink>
-      </span>
-      <Link to='/login'>Sign In</Link>
-    </Header>
+    <Container>
+      <Header>
+        <span>
+          <RRLink to='/'>
+            <StyledLogo />
+          </RRLink>
+        </span>
+        {!isUserLogged && <Link to='/login'>Sign In</Link>}
+      </Header>
+    </Container>
   )
+}
+
+HeaderView.propTypes = {
+  isUserLogged: PropTypes.bool.isRequired
 }
 
 export default HeaderView
