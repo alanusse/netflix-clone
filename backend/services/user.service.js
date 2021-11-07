@@ -29,6 +29,8 @@ const userService = {
     const token = jwt.sign(payloadToSign, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRY_TIME })
 
     return {
+      id: user.id,
+      email: user.email,
       token
     }
   },

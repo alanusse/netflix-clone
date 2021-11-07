@@ -42,7 +42,11 @@ const controller = {
         .status(200)
         .json(responseTemplate({
           status: 200,
-          data: { authorization: user.token }
+          data: {
+            id: user.id,
+            email: user.email,
+            authorization: user.token
+          }
         }))
     } catch (error) {
       return next(error)

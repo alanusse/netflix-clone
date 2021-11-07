@@ -16,6 +16,22 @@ const errorHandler = (next, data) => {
 }
 
 const controller = {
+  getUserProfiles: async (req, res, next) => {
+    try {
+      const profiles = await profileService.getProfilesByUserId(req.userId)
+      if (profiles.failed) return errorHandler(next, profiles)
+
+      return res
+        .status(200)
+        .json(responseTemplate({
+          status: 200,
+          data: profiles
+        }))
+    } catch (error) {
+      return next(error)
+    }
+  },
+
   getProfileById: async (req, res, next) => {
     const { id } = req.params
 
