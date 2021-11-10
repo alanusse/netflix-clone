@@ -14,6 +14,8 @@ const useField = ({
 
   const removeError = () => setErrorMessage(null)
 
+  const resetValue = () => setValue('')
+
   return {
     type,
     value,
@@ -21,7 +23,8 @@ const useField = ({
     onChange,
     errorMessage,
     setErrorMessage,
-    removeError
+    removeError,
+    resetValue
   }
 }
 

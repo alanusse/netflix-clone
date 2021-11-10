@@ -7,7 +7,8 @@ export const ButtonRoot = props => `
   display: flex;
   align-items: center;
   padding: ${props.padding || '.4rem .6rem'};
-  ${props.margin && `margin: ${props.margin}`};
+  ${props.center ? 'margin: 0 auto;' : ''}
+  ${props.margin ? `margin: ${props.margin};` : ''}
   background-color: ${props.bgColor || colors.primary};
   color: ${props.color || '#fff'};
   border: none;
@@ -18,10 +19,6 @@ export const ButtonRoot = props => `
   letter-spacing: .3px;
   cursor: pointer;
   transition: all .3s ease;
-
-  :focus {
-    outline: none;
-  }
 
   :hover {
     filter: drop-shadow(2px 4px 6px black);

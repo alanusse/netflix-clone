@@ -4,9 +4,11 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 
 // reducers
 import userReducer from './reducers/user'
+import profileReducer from './reducers/profile'
 
 const reducers = combineReducers({
-  user: userReducer
+  user: userReducer,
+  profile: profileReducer
 })
 
 const enhancer = composeWithDevTools(

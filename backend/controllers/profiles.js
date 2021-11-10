@@ -51,10 +51,11 @@ const controller = {
   },
 
   createProfile: async function (req, res, next) {
-    const { userId, name, avatar, isKidProfile } = req.body
+    const userId = req.userId
+    const { name } = req.body
 
     try {
-      const profile = await profileService.createProfile({ userId, name, avatar, isKidProfile })
+      const profile = await profileService.createProfile({ userId, name })
 
       if (profile.failed) return errorHandler(next, profile)
 
@@ -62,6 +63,24 @@ const controller = {
         .status(201)
         .json(responseTemplate({
           status: 201,
+          data: profile
+        }))
+    } catch (error) {
+      return next(error)
+    }
+  },
+
+  modifyProfileName: async function (req, res, next) {
+    const { id } = req.params
+
+    try {
+      const profile = await profileService.modifyProfileName({ id, name: req.body.name })
+      if (profile.failed) return errorHandler(next, profile)
+
+      return res
+        .status(200)
+        .json(responseTemplate({
+          status: 200,
           data: profile
         }))
     } catch (error) {

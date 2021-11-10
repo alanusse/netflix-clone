@@ -7,6 +7,7 @@ import useCheckUserToken from '../hooks/useCheckUserToken'
 import Home from '../pages/Home'
 import LogIn from '../pages/LogIn'
 import SignUp from '../pages/SignUp'
+import Profiles from '../pages/Profiles'
 
 // TODO: unknown endpoint - 404
 const RouterConfig = () => {
@@ -38,8 +39,8 @@ const RouterConfig = () => {
           : <SignUp />}
       </Route>
 
-      <ProtectedRoute path='/profiles'>
-        <p>profiles page</p>
+      <ProtectedRoute path={['/profiles', '/manage-profiles']}>
+        <Profiles />
       </ProtectedRoute>
     </Switch>
   )

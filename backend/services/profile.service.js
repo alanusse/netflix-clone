@@ -14,12 +14,10 @@ const profileService = {
     return await Profile.find({ account: userId })
   },
 
-  createProfile: async function ({ userId, name, avatar, isKidProfile }) {
+  createProfile: async function ({ userId, name }) {
     const profile = new Profile({
       account: userId,
-      name,
-      avatar,
-      isKidProfile
+      name
     })
 
     const user = await User.findById(userId)
@@ -27,14 +25,33 @@ const profileService = {
 
     await profile.save()
 
-    user.profiles.push(profile.id)
-    await user.save()
+    await User.findByIdAndUpdate(userId, {
+      $push: {
+        profiles: profile.id
+      }
+    }, {
+      new: true
+    })
 
     return profile
   },
 
   getProfileById: async function (profileId) {
     const profile = await Profile.findById(profileId)
+
+    if (!profile) return { failed: true, error: this.ERROR_NAMES.PROFILE_NOT_FOUND }
+
+    return profile
+  },
+
+  modifyProfileName: async function ({ id, name }) {
+    const profile = await Profile.findByIdAndUpdate(id, {
+      $set: {
+        name
+      }
+    }, {
+      new: true
+    })
 
     if (!profile) return { failed: true, error: this.ERROR_NAMES.PROFILE_NOT_FOUND }
 

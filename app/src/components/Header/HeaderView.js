@@ -6,6 +6,8 @@ import { Link as RRLink } from 'react-router-dom'
 import Container from '../Container'
 
 const Header = styled.header`
+  position: relative;
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   align-items: center;

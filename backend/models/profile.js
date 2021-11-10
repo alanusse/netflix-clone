@@ -17,16 +17,6 @@ const ProfileSchema = new Schema({
     ]
   },
 
-  avatar: {
-    type: String,
-    required: [true, 'Avatar URL is required.']
-  },
-
-  isKidProfile: {
-    type: Boolean,
-    required: [true, 'KidProfile field is required.']
-  },
-
   myList: [{
     id: {
       type: String,

@@ -31,7 +31,7 @@ const userService = {
     return {
       id: user.id,
       email: user.email,
-      token
+      token: `Bearer ${token}`
     }
   },
 
